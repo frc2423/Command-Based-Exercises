@@ -13,15 +13,12 @@ public class Spin extends Command {
 
     @Override
     public void initialize() {
-        // TODO: Reset and start the timer
-        // Hint: Use timer.restart()
 
     }
 
     @Override
     public void execute() {
-        System.out.println("SPINN!!!");
-        drivetrain.drive(2, .5);
+        drivetrain.drive(0, .5);
 
     }
 
