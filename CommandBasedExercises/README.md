@@ -1,11 +1,3 @@
-# Goal
-
-I'm trying to introduce new students to FRC programming, specifically using the command-based framework: https://docs.wpilib.org/en/stable/docs/software/commandbased/index.html
-
-The goal is to create a set of challenges that can be run in simulation: https://docs.wpilib.org/en/stable/docs/software/wpilib-tools/robot-simulation/simulation-gui.html
-
-Each challenge should be self-contained and should get progressively harder, building off of the skills of the previous challenge.
-
 # links
 
 Command Based docs: https://docs.wpilib.org/en/stable/docs/software/commandbased/index.html

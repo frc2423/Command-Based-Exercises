@@ -52,21 +52,16 @@ Complete these challenges in order. Each challenge builds on concepts from previ
 
 ### Challenge 1: Drive Forward for Time
 **File**: `src/main/java/frc/robot/challenges/DriveForwardForTime.java`
+
 **Goal**: Make a robot drive forward at a fixed speed for 3 seconds, then stop.
+
 **Concepts**: Command lifecycle, timers, basic robot movement
-**SmartDashboard Button**: "Drive Forward for Time"
 
 **What you'll learn**:
 - How commands work (start, execute, end, isFinished)
 - Using WPILib Timer class
 - Basic drivetrain control
 - Command lifecycle management
-
-**Instructions**:
-1. In `initialize()`: Reset and start the timer using `timer.restart()`
-2. In `execute()`: Make the robot drive forward using `drivetrain.drive(DRIVE_SPEED, 0)`
-3. In `isFinished()`: Return true when `timer.get() >= DRIVE_TIME_SECONDS`
-4. In `end()`: Stop the robot using `drivetrain.drive(0, 0)`
 
 **Hints**:
 - The first parameter of `drive()` is forward speed, second is rotation
@@ -75,22 +70,16 @@ Complete these challenges in order. Each challenge builds on concepts from previ
 
 ### Challenge 2: Joystick-Teleop Driving
 **File**: `src/main/java/frc/robot/challenges/JoystickTeleopDriving.java`
+
 **Goal**: Use a joystick or controller to teleop-drive the robot (arcade drive).
+
 **Concepts**: Continuous commands, controller input, arcade drive
-**SmartDashboard Button**: "Joystick Teleop Driving"
 
 **What you'll learn**:
 - Reading controller inputs
 - Arcade drive control (forward/backward + turning)
 - Continuous commands that never finish
 - Input scaling and inversion
-
-**Instructions**:
-1. In `execute()`: Read controller inputs and drive the robot
-2. Use `controller.getLeftY()` for forward/backward (may need to negate)
-3. Use `controller.getRightX()` for turning (may need to negate)
-4. Scale inputs by `Drivetrain.kMaxSpeed` and `Drivetrain.kMaxAngularSpeed`
-5. `isFinished()` should return false (runs continuously)
 
 **Hints**:
 - Xbox controllers return negative values when pushing forward
@@ -99,21 +88,14 @@ Complete these challenges in order. Each challenge builds on concepts from previ
 
 ### Challenge 3: Simple Button Command
 **File**: `src/main/java/frc/robot/challenges/SimpleButtonCommand.java`
+
 **Goal**: While holding the A button, spin the robot in place (simulating an intake motor).
+
 **Concepts**: Button state checking, conditional execution
-**SmartDashboard Button**: "Simple Button Command" (then use A button on controller within the challenge)
 
 **What you'll learn**:
 - Checking button states in commands
 - Conditional robot behavior
-- Simulating subsystem control
-- "While held" button semantics
-
-**Instructions**:
-1. In `execute()`: Check if A button is pressed using `controller.getAButton()`
-2. If pressed: Make robot spin using `drivetrain.drive(0, SPIN_SPEED)`
-3. If not pressed: Stop the robot using `drivetrain.drive(0, 0)`
-4. `isFinished()` should return false (runs continuously)
 
 **Hints**:
 - `getAButton()` returns true when the button is currently pressed
@@ -122,9 +104,11 @@ Complete these challenges in order. Each challenge builds on concepts from previ
 
 ### Challenge 4: Turn to Angle
 **File**: `src/main/java/frc/robot/challenges/TurnToAngle.java`
+
 **Goal**: Use the gyro to turn the robot to exactly 90 degrees.
+
 **Concepts**: Sensor feedback, proportional control, closed-loop systems
-**SmartDashboard Button**: "Turn to Angle"
+
 
 **What you'll learn**:
 - Reading sensor data (gyro)
@@ -181,16 +165,4 @@ The `ChallengeManager` subsystem manages all challenges and integrates with the 
 ### Debugging Tips
 - Use `System.out.println()` to print variable values
 - Check the console output in VS Code for error messages
-- Verify button mappings in `RobotContainer.java`
 - Make sure the simulation GUI is running and connected
-
-## Next Steps
-
-Once you complete these basic challenges, you'll be ready for more advanced topics:
-- Autonomous sequences with multiple commands
-- PID controllers for precise movement
-- Trajectory following
-- State machines for complex behaviors
-- Vision processing and sensor fusion
-
-Keep practicing and experimenting with the command-based framework!
