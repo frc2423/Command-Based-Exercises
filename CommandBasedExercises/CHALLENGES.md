@@ -14,15 +14,16 @@ Welcome to the FRC Command-Based Programming Challenges! This project is designe
 
 ### Testing Your Challenges
 
-1. You'll see buttons for each challenge in the simulation GUI
-2. Use an Xbox controller or keyboard to interact with the challenges:
-   - **X Button**: Drive Forward for Time
-   - **Y Button**: Turn to Angle
-   - **B Button**: Simple Button Command
-   - **Left Bumper**: Joystick Teleop Driving
-   - **Right Bumper**: Stop All Challenges
-3. Watch the robot move on the field visualization
-4. Use the "Field2d" widget to see the robot's position and orientation
+1. In the simulation GUI, look for the SmartDashboard section
+2. You'll see buttons for each challenge:
+   - **Drive Forward for Time**: Makes the robot drive forward for 3 seconds
+   - **Joystick Teleop Driving**: Allows controller-based driving
+   - **Simple Button Command**: Spin robot when A button is held
+   - **Turn to Angle**: Turn robot to 90 degrees using gyro
+   - **Stop Robot**: Stops all robot movement
+3. Click any button to start that challenge
+4. Watch the robot move on the field visualization
+5. Use the "Field2d" widget to see the robot's position and orientation
 
 ## Programming Resources
 
@@ -53,7 +54,7 @@ Complete these challenges in order. Each challenge builds on concepts from previ
 **File**: `src/main/java/frc/robot/challenges/DriveForwardForTime.java`
 **Goal**: Make a robot drive forward at a fixed speed for 3 seconds, then stop.
 **Concepts**: Command lifecycle, timers, basic robot movement
-**Button**: X Button on controller
+**SmartDashboard Button**: "Drive Forward for Time"
 
 **What you'll learn**:
 - How commands work (start, execute, end, isFinished)
@@ -62,7 +63,7 @@ Complete these challenges in order. Each challenge builds on concepts from previ
 - Command lifecycle management
 
 **Instructions**:
-1. In `start()`: Reset and start the timer using `timer.restart()`
+1. In `initialize()`: Reset and start the timer using `timer.restart()`
 2. In `execute()`: Make the robot drive forward using `drivetrain.drive(DRIVE_SPEED, 0)`
 3. In `isFinished()`: Return true when `timer.get() >= DRIVE_TIME_SECONDS`
 4. In `end()`: Stop the robot using `drivetrain.drive(0, 0)`
@@ -76,7 +77,7 @@ Complete these challenges in order. Each challenge builds on concepts from previ
 **File**: `src/main/java/frc/robot/challenges/JoystickTeleopDriving.java`
 **Goal**: Use a joystick or controller to teleop-drive the robot (arcade drive).
 **Concepts**: Continuous commands, controller input, arcade drive
-**Button**: Left Bumper on controller
+**SmartDashboard Button**: "Joystick Teleop Driving"
 
 **What you'll learn**:
 - Reading controller inputs
@@ -100,7 +101,7 @@ Complete these challenges in order. Each challenge builds on concepts from previ
 **File**: `src/main/java/frc/robot/challenges/SimpleButtonCommand.java`
 **Goal**: While holding the A button, spin the robot in place (simulating an intake motor).
 **Concepts**: Button state checking, conditional execution
-**Button**: B Button on controller (starts the challenge, then use A button within the challenge)
+**SmartDashboard Button**: "Simple Button Command" (then use A button on controller within the challenge)
 
 **What you'll learn**:
 - Checking button states in commands
@@ -123,7 +124,7 @@ Complete these challenges in order. Each challenge builds on concepts from previ
 **File**: `src/main/java/frc/robot/challenges/TurnToAngle.java`
 **Goal**: Use the gyro to turn the robot to exactly 90 degrees.
 **Concepts**: Sensor feedback, proportional control, closed-loop systems
-**Button**: Y Button on controller
+**SmartDashboard Button**: "Turn to Angle"
 
 **What you'll learn**:
 - Reading sensor data (gyro)
@@ -149,13 +150,16 @@ Complete these challenges in order. Each challenge builds on concepts from previ
 
 ## Understanding the Code Structure
 
-Each challenge implements the `Challenge` interface with four methods:
-- `start(Drivetrain)`: Called once when the challenge begins
-- `execute(Drivetrain)`: Called repeatedly (~50 times/second) while active
-- `end(Drivetrain)`: Called once when the challenge stops
-- `isFinished(Drivetrain)`: Returns true when the challenge should end
+Each challenge implements the `Challenge` interface with one method:
+- `getCommand(Drivetrain)`: Returns a Command that implements the challenge logic
 
-The `ChallengeManager` subsystem manages all challenges and integrates with the command-based framework. Button bindings in `RobotContainer.java` allow you to start different challenges.
+The returned Command has four key methods:
+- `initialize()`: Called once when the command begins
+- `execute()`: Called repeatedly (~50 times/second) while active
+- `end(boolean interrupted)`: Called once when the command stops
+- `isFinished()`: Returns true when the command should end
+
+The `ChallengeManager` subsystem manages all challenges and integrates with the command-based framework. SmartDashboard buttons in the simulation GUI allow you to start different challenges.
 
 ## Tips for Success
 

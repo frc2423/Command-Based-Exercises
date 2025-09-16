@@ -6,83 +6,50 @@ import frc.robot.Drivetrain;
 
 /**
  * Subsystem that manages command-based programming challenges.
- * This integrates the challenge system with the WPILib command-based framework.
+ * This follows the same pattern as the LED exercises.
  */
 public class ChallengeManager extends SubsystemBase {
-    private final ChallengeController challengeController;
     private final Drivetrain drivetrain;
 
     public ChallengeManager(Drivetrain drivetrain) {
         this.drivetrain = drivetrain;
-        this.challengeController = new ChallengeController(drivetrain);
-        
-        // Add all challenges
-        challengeController.add("DriveForwardForTime", new DriveForwardForTime());
-        challengeController.add("JoystickTeleopDriving", new JoystickTeleopDriving());
-        challengeController.add("SimpleButtonCommand", new SimpleButtonCommand());
-        challengeController.add("TurnToAngle", new TurnToAngle());
-        
-        // Set default command to stop all challenges
-        setDefaultCommand(stopAllChallenges());
+
+        // Set default command to do nothing (stop robot)
+        setDefaultCommand(stopRobot());
     }
 
     /**
-     * Command to start the Drive Forward for Time challenge.
+     * Command for Challenge 1: Drive Forward for Time
      */
-    public Command startDriveForwardForTime() {
-        return run(() -> challengeController.startChallenge("DriveForwardForTime"))
-            .withName("Drive Forward for Time");
+    public Command driveForwardForTime() {
+        return new DriveForwardForTime(drivetrain);
     }
 
     /**
-     * Command to start the Joystick Teleop Driving challenge.
+     * Command for Challenge 2: Joystick Teleop Driving
      */
-    public Command startJoystickTeleopDriving() {
-        return run(() -> challengeController.startChallenge("JoystickTeleopDriving"))
-            .withName("Joystick Teleop Driving");
+    public Command joystickTeleopDriving() {
+        return new JoystickTeleopDriving(drivetrain);
     }
 
     /**
-     * Command to start the Simple Button Command challenge.
+     * Command for Challenge 3: Simple Button Command
      */
-    public Command startSimpleButtonCommand() {
-        return run(() -> challengeController.startChallenge("SimpleButtonCommand"))
-            .withName("Simple Button Command");
+    public Command simpleButtonCommand() {
+        return new SimpleButtonCommand(drivetrain);
     }
 
     /**
-     * Command to start the Turn to Angle challenge.
+     * Command for Challenge 4: Turn to Angle
      */
-    public Command startTurnToAngle() {
-        return run(() -> challengeController.startChallenge("TurnToAngle"))
-            .withName("Turn to Angle");
+    public Command turnToAngle() {
+        return new TurnToAngle(drivetrain);
     }
 
     /**
-     * Command to stop all challenges.
+     * Command to stop the robot (default command)
      */
-    public Command stopAllChallenges() {
-        return run(() -> challengeController.stopCurrentChallenge())
-            .withName("Stop All Challenges");
-    }
-
-    @Override
-    public void periodic() {
-        // Run the current challenge
-        challengeController.run();
-    }
-
-    /**
-     * Get the name of the currently active challenge.
-     */
-    public String getCurrentChallenge() {
-        return challengeController.getCurrentChallenge();
-    }
-
-    /**
-     * Check if a challenge is currently active.
-     */
-    public boolean isChallengeActive() {
-        return challengeController.isChallengeActive();
+    public Command stopRobot() {
+        return run(() -> drivetrain.drive(0, 0)).withName("Stop Robot");
     }
 }
