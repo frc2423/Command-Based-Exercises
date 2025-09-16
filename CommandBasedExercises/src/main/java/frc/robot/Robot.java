@@ -4,77 +4,83 @@
 
 package frc.robot;
 
-import edu.wpi.first.math.controller.LTVUnicycleController;
-import edu.wpi.first.math.filter.SlewRateLimiter;
-import edu.wpi.first.math.geometry.Pose2d;
-import edu.wpi.first.math.geometry.Rotation2d;
-import edu.wpi.first.math.kinematics.ChassisSpeeds;
-import edu.wpi.first.math.trajectory.Trajectory;
-import edu.wpi.first.math.trajectory.TrajectoryConfig;
-import edu.wpi.first.math.trajectory.TrajectoryGenerator;
 import edu.wpi.first.wpilibj.TimedRobot;
-import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.XboxController;
-import java.util.List;
+import edu.wpi.first.wpilibj2.command.CommandScheduler;
 
 public class Robot extends TimedRobot {
-  private final XboxController m_controller = new XboxController(0);
-
-  // Slew rate limiters to make joystick inputs more gentle; 1/3 sec from 0
-  // to 1.
-  private final SlewRateLimiter m_speedLimiter = new SlewRateLimiter(3);
-  private final SlewRateLimiter m_rotLimiter = new SlewRateLimiter(3);
-
-  private final Drivetrain m_drive = new Drivetrain();
-  private final LTVUnicycleController m_feedback = new LTVUnicycleController(0.020);
-  private final Timer m_timer = new Timer();
-  private final Trajectory m_trajectory;
+  private RobotContainer robotContainer;
 
   /** Called once at the beginning of the robot program. */
-  public Robot() {
-    m_trajectory =
-        TrajectoryGenerator.generateTrajectory(
-            new Pose2d(2, 2, Rotation2d.kZero),
-            List.of(),
-            new Pose2d(6, 4, Rotation2d.kZero),
-            new TrajectoryConfig(2, 2));
+  @Override
+  public void robotInit() {
+    // Instantiate our RobotContainer. This will perform all our button bindings,
+    // and put our autonomous chooser on the dashboard.
+    robotContainer = new RobotContainer();
   }
 
+  /**
+   * This function is called every robot packet, no matter the mode. Use this for items like
+   * diagnostics that you want ran during disabled, autonomous, teleoperated and test.
+   *
+   * <p>This runs after the mode specific periodic functions, but before LiveWindow and
+   * SmartDashboard integrated updating.
+   */
   @Override
   public void robotPeriodic() {
-    m_drive.periodic();
+    // Runs the Scheduler. This is responsible for polling buttons, adding newly-scheduled
+    // commands, running already-scheduled commands, removing finished or interrupted commands,
+    // and running subsystem periodic() methods. This must be called from the robot's periodic
+    // block in order for anything in the Command-based framework to work.
+    CommandScheduler.getInstance().run();
   }
 
+  /** This function is called once each time the robot enters Disabled mode. */
+  @Override
+  public void disabledInit() {}
+
+  @Override
+  public void disabledPeriodic() {}
+
+  /** This autonomous runs the autonomous command selected by your {@link RobotContainer} class. */
   @Override
   public void autonomousInit() {
-    m_timer.restart();
-    m_drive.resetOdometry(m_trajectory.getInitialPose());
+    robotContainer.getAutonomousCommand();
   }
+
+  /** This function is called periodically during autonomous. */
+  @Override
+  public void autonomousPeriodic() {}
 
   @Override
-  public void autonomousPeriodic() {
-    double elapsed = m_timer.get();
-    Trajectory.State reference = m_trajectory.sample(elapsed);
-    ChassisSpeeds speeds = m_feedback.calculate(m_drive.getPose(), reference);
-    m_drive.drive(speeds.vxMetersPerSecond, speeds.omegaRadiansPerSecond);
+  public void teleopInit() {
+    // This makes sure that the autonomous stops running when
+    // teleop starts running. If you want the autonomous to
+    // continue until interrupted by another command, remove
+    // this line or comment it out.
   }
+
+  /** This function is called periodically during operator control. */
+  @Override
+  public void teleopPeriodic() {}
 
   @Override
-  public void teleopPeriodic() {
-    // Get the x speed. We are inverting this because Xbox controllers return
-    // negative values when we push forward.
-    double xSpeed = -m_speedLimiter.calculate(m_controller.getLeftY()) * Drivetrain.kMaxSpeed;
-
-    // Get the rate of angular rotation. We are inverting this because we want a
-    // positive value when we pull to the left (remember, CCW is positive in
-    // mathematics). Xbox controllers return positive values when you pull to
-    // the right by default.
-    double rot = -m_rotLimiter.calculate(m_controller.getRightX()) * Drivetrain.kMaxAngularSpeed;
-    m_drive.drive(xSpeed, rot);
+  public void testInit() {
+    // Cancels all running commands at the start of test mode.
+    CommandScheduler.getInstance().cancelAll();
   }
 
+  /** This function is called periodically during test mode. */
+  @Override
+  public void testPeriodic() {}
+
+  /** This function is called once when the robot is first started up. */
+  @Override
+  public void simulationInit() {}
+
+  /** This function is called periodically whilst in simulation. */
   @Override
   public void simulationPeriodic() {
-    m_drive.simulationPeriodic();
+    // Run drivetrain simulation
+    robotContainer.getDrivetrain().simulationPeriodic();
   }
 }

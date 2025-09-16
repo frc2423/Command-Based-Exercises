@@ -133,6 +133,16 @@ public class Drivetrain {
     return m_odometry.getPoseMeters();
   }
 
+  /** Get the current gyro angle in degrees. */
+  public double getAngle() {
+    return m_gyro.getAngle();
+  }
+
+  /** Reset the gyro angle to zero. */
+  public void resetGyro() {
+    m_gyro.reset();
+  }
+
   /** Update our simulation. This should be run every robot loop in simulation. */
   public void simulationPeriodic() {
     // To update our simulation, we set motor voltage inputs, update the
