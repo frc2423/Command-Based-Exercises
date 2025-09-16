@@ -62,6 +62,42 @@ public class ChallengeManager extends SubsystemBase {
     }
 
     /**
+     * Command for Challenge 5: Drive Distance
+     */
+    public Command driveDistance() {
+        Command command = new DriveDistance(drivetrain);
+        command.addRequirements(this);
+        return command;
+    }
+
+    /**
+     * Command for Challenge 6: Square Path
+     */
+    public Command squarePath() {
+        Command command = new SquarePath(drivetrain);
+        command.addRequirements(this);
+        return command;
+    }
+
+    /**
+     * Command for Challenge 7: PID Turn to Angle
+     */
+    public Command pidTurnToAngle() {
+        Command command = new PIDTurnToAngle(drivetrain);
+        command.addRequirements(this);
+        return command;
+    }
+
+    /**
+     * Command for Challenge 8: Drive to Position
+     */
+    public Command driveToPosition() {
+        Command command = new DriveToPosition(drivetrain);
+        command.addRequirements(this);
+        return command;
+    }
+
+    /**
      * Command to stop the robot (default command)
      */
     public Command stopRobot() {

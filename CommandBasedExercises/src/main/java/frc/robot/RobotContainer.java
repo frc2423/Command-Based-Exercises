@@ -28,6 +28,10 @@ public class RobotContainer {
         SmartDashboard.putData(challengeManager.joystickTeleopDriving());
         SmartDashboard.putData(challengeManager.simpleButtonCommand());
         SmartDashboard.putData(challengeManager.turnToAngle());
+        SmartDashboard.putData(challengeManager.driveDistance());
+        SmartDashboard.putData(challengeManager.squarePath());
+        SmartDashboard.putData(challengeManager.pidTurnToAngle());
+        SmartDashboard.putData(challengeManager.driveToPosition());
 
         SmartDashboard.putData("Challenges", challengeManager);
     }

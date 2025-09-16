@@ -132,6 +132,109 @@ Complete these challenges in order. Each challenge builds on concepts from previ
 - Use `Math.abs(error) < ANGLE_TOLERANCE` to check if close enough
 - Tune `TURN_KP` if the robot oscillates or responds too slowly
 
+## Intermediate Challenges
+
+These challenges introduce more advanced concepts while still focusing on drivetrain control.
+
+### Challenge 5: Drive Distance
+**File**: `src/main/java/frc/robot/challenges/DriveDistance.java`
+**Goal**: Drive forward exactly 2 meters using encoder feedback, then stop.
+**Concepts**: Encoder readings, distance-based control, odometry
+**SmartDashboard Button**: "Drive Distance"
+
+**What you'll learn**:
+- Reading encoder values for precise movement
+- Using odometry for position tracking
+- Distance-based control vs time-based control
+- Understanding coordinate systems
+
+**Instructions**:
+1. In `initialize()`: Reset odometry using `drivetrain.resetOdometry(new Pose2d())`
+2. In `execute()`: Drive forward at constant speed
+3. In `isFinished()`: Check if `drivetrain.getPose().getX() >= TARGET_DISTANCE`
+4. In `end()`: Stop the robot
+
+### Challenge 6: Square Path
+**File**: `src/main/java/frc/robot/challenges/SquarePath.java`
+**Goal**: Drive in a 1m x 1m square pattern using command compositions.
+**Concepts**: SequentialCommandGroup, command building blocks, command compositions
+**SmartDashboard Button**: "Square Path"
+
+**What you'll learn**:
+- Command compositions and SequentialCommandGroup
+- Creating reusable command building blocks
+- How complex autonomous routines are built from simple commands
+- Command scheduling and lifecycle management
+
+**Instructions**:
+1. Complete the `driveDistance()` helper method to drive forward a specific distance
+2. Complete the `turnAngle()` helper method to turn a specific angle
+3. In the constructor, use `addCommands()` to build the sequence:
+   ```java
+   addCommands(
+       driveDistance(SIDE_LENGTH),
+       turnAngle(TURN_ANGLE),
+       driveDistance(SIDE_LENGTH),
+       turnAngle(TURN_ANGLE),
+       // ... continue for all 4 sides
+   );
+   ```
+
+**Key Concepts**:
+- This demonstrates the power of command-based programming
+- Complex behaviors built from simple, reusable components
+- Each command handles its own lifecycle (initialize, execute, end, isFinished)
+- SequentialCommandGroup automatically manages the sequence
+
+### Challenge 7: PID Turn to Angle
+**File**: `src/main/java/frc/robot/challenges/PIDTurnToAngle.java`
+**Goal**: Use a PID controller to turn to 180 degrees with smooth, accurate control.
+**Concepts**: PID controllers, tuning gains, smooth control
+**SmartDashboard Button**: "PID Turn to Angle"
+
+**What you'll learn**:
+- PID controller theory and implementation
+- Tuning P, I, and D gains
+- Difference between PID and simple proportional control
+- Handling overshoot and oscillation
+
+**Instructions**:
+1. Create PID controller with gains (try P=0.05, I=0.0, D=0.01)
+2. In `initialize()`: Reset gyro and set PID setpoint
+3. In `execute()`: Use `pidController.calculate(currentAngle)` for turn speed
+4. In `isFinished()`: Use `pidController.atSetpoint()`
+
+**PID Tuning Tips**:
+- Start with P only, increase until oscillation, then reduce
+- Add D to reduce oscillation
+- Add I only if there's steady-state error
+
+### Challenge 8: Drive to Position
+**File**: `src/main/java/frc/robot/challenges/DriveToPosition.java`
+**Goal**: Drive to a specific X,Y coordinate (3, 2) using simple proportional control.
+**Concepts**: 2D navigation, proportional control, coordinated movement
+**SmartDashboard Button**: "Drive to Position"
+
+**What you'll learn**:
+- 2D coordinate navigation and positioning
+- Calculating distance and angle to targets
+- Coordinated driving and turning simultaneously
+- Simple proportional control for both axes
+
+**Instructions**:
+1. Calculate distance to target: `Math.sqrt(deltaX*deltaX + deltaY*deltaY)`
+2. Calculate angle to target: `Math.atan2(deltaY, deltaX)`
+3. Use proportional control:
+   - Drive speed = `distanceToTarget * DRIVE_KP`
+   - Turn speed = `angleError * TURN_KP`
+4. Apply both outputs simultaneously: `drivetrain.drive(driveOutput, turnOutput)`
+
+**Key Concepts**:
+- This is like a simple "drive to point" autonomous routine
+- Robot drives and turns at the same time to reach the target
+- Proportional control makes the robot slow down as it approaches
+- Real robots use similar techniques for field navigation
+
 ## Understanding the Code Structure
 
 Each challenge implements the `Challenge` interface with one method:
