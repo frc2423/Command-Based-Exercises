@@ -1,0 +1,68 @@
+{
+  "HALProvider": {
+    "Other Devices": {
+      "window": {
+        "visible": false
+      }
+    }
+  },
+  "NTProvider": {
+    "types": {
+      "/FMSInfo": "FMSInfo",
+      "/SmartDashboard/Challenges": "Subsystem",
+      "/SmartDashboard/DriveForwardForTime": "Command",
+      "/SmartDashboard/Field": "Field2d",
+      "/SmartDashboard/JoystickTeleopDriving": "Command",
+      "/SmartDashboard/SimpleButtonCommand": "Command",
+      "/SmartDashboard/Spin": "Command",
+      "/SmartDashboard/Stop Robot": "Command",
+      "/SmartDashboard/TurnToAngle": "Command"
+    },
+    "windows": {
+      "/SmartDashboard/DriveForwardForTime": {
+        "window": {
+          "visible": true
+        }
+      },
+      "/SmartDashboard/Field": {
+        "bottom": 1476,
+        "height": 8.210550308227539,
+        "left": 150,
+        "right": 2961,
+        "top": 79,
+        "width": 16.541748046875,
+        "window": {
+          "visible": true
+        }
+      },
+      "/SmartDashboard/JoystickTeleopDriving": {
+        "window": {
+          "visible": true
+        }
+      },
+      "/SmartDashboard/SimpleButtonCommand": {
+        "window": {
+          "visible": true
+        }
+      },
+      "/SmartDashboard/Spin": {
+        "window": {
+          "visible": true
+        }
+      },
+      "/SmartDashboard/Stop Robot": {
+        "window": {
+          "visible": true
+        }
+      },
+      "/SmartDashboard/TurnToAngle": {
+        "window": {
+          "visible": true
+        }
+      }
+    }
+  },
+  "NetworkTables View": {
+    "visible": false
+  }
+}
