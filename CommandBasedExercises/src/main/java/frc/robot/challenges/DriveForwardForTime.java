@@ -23,8 +23,6 @@ import frc.robot.Drivetrain;
  * 4. In the end() method, stop the robot
  */
 public class DriveForwardForTime extends Command {
-    private static final double DRIVE_TIME_SECONDS = 3.0;
-    private static final double DRIVE_SPEED = 0.5; // meters per second
 
     private final Drivetrain drivetrain;
     private Timer timer = new Timer();
@@ -35,17 +33,13 @@ public class DriveForwardForTime extends Command {
 
     @Override
     public void initialize() {
-        // TODO: Reset and start the timer
-        // Hint: Use timer.restart()
+        
 
     }
 
     @Override
     public void execute() {
-        // TODO: Make the robot drive forward
-        // Hint: Use drivetrain.drive(speed, rotation)
-        // For driving straight forward, rotation should be 0
-
+    
     }
 
     @Override
@@ -59,7 +53,6 @@ public class DriveForwardForTime extends Command {
     public boolean isFinished() {
         // TODO: Return true when enough time has passed
         // Hint: Use timer.get() to get elapsed time in seconds
-        // Compare it to DRIVE_TIME_SECONDS
         return false;
     }
 

@@ -93,7 +93,7 @@ public class Drivetrain {
   }
 
   /** Sets speeds to the drivetrain motors. */
-  public void setSpeeds(DifferentialDriveWheelSpeeds speeds) {
+  private void setSpeeds(DifferentialDriveWheelSpeeds speeds) {
     final double leftFeedforward = m_feedforward.calculate(speeds.leftMetersPerSecond);
     final double rightFeedforward = m_feedforward.calculate(speeds.rightMetersPerSecond);
     double leftOutput =
@@ -112,7 +112,7 @@ public class Drivetrain {
    * @param rot the rotation
    */
   public void drive(double xSpeed, double rot) {
-    setSpeeds(m_kinematics.toWheelSpeeds(new ChassisSpeeds(xSpeed, 0, rot)));
+    setSpeeds(m_kinematics.toWheelSpeeds(new ChassisSpeeds(xSpeed * kMaxSpeed, 0, rot * kMaxAngularSpeed)));
   }
 
   /** Update robot odometry. */

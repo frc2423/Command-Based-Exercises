@@ -27,8 +27,6 @@ import frc.robot.Drivetrain;
  * but for this exercise we'll check the button state directly in execute().
  */
 public class SimpleButtonCommand extends Command {
-    private static final double SPIN_SPEED = 1.0; // radians per second
-
     private final Drivetrain drivetrain;
     private XboxController controller = new XboxController(0);
 
@@ -45,16 +43,6 @@ public class SimpleButtonCommand extends Command {
     public void execute() {
         // TODO: Check if the A button is pressed and control the robot accordingly
         // Hint: Use controller.getAButton() to check if A button is pressed
-        // Hint: If pressed, use drivetrain.drive(0, SPIN_SPEED) to spin in place
-        // Hint: If not pressed, use drivetrain.drive(0, 0) to stop
-
-        if (false) { // TODO: Replace 'false' with button check
-            // TODO: Make robot spin in place
-
-        } else {
-            // TODO: Stop the robot
-
-        }
     }
 
     @Override
