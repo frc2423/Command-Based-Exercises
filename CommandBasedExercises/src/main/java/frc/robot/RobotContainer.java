@@ -22,6 +22,8 @@ public class RobotContainer {
 
         // Add challenge commands to SmartDashboard
         SmartDashboard.putData(challengeManager.stopRobot());
+        SmartDashboard.putData(challengeManager.spin());
+        
         SmartDashboard.putData(challengeManager.driveForwardForTime());
         SmartDashboard.putData(challengeManager.joystickTeleopDriving());
         SmartDashboard.putData(challengeManager.simpleButtonCommand());

@@ -22,34 +22,51 @@ public class ChallengeManager extends SubsystemBase {
      * Command for Challenge 1: Drive Forward for Time
      */
     public Command driveForwardForTime() {
-        return new DriveForwardForTime(drivetrain);
+        Command command = new DriveForwardForTime(drivetrain);
+        command.addRequirements(this);
+        return command;
     }
 
     /**
      * Command for Challenge 2: Joystick Teleop Driving
      */
     public Command joystickTeleopDriving() {
-        return new JoystickTeleopDriving(drivetrain);
+        Command command = new JoystickTeleopDriving(drivetrain);
+        command.addRequirements(this);
+        return command;
     }
 
     /**
      * Command for Challenge 3: Simple Button Command
      */
     public Command simpleButtonCommand() {
-        return new SimpleButtonCommand(drivetrain);
+        Command command = new SimpleButtonCommand(drivetrain);
+        command.addRequirements(this);
+        return command;
     }
 
     /**
      * Command for Challenge 4: Turn to Angle
      */
     public Command turnToAngle() {
-        return new TurnToAngle(drivetrain);
+        Command command = new TurnToAngle(drivetrain);
+        command.addRequirements(this);
+        return command;
+        
+    }
+
+    public Command spin() {
+        Command command = new Spin(drivetrain);
+        command.addRequirements(this);
+        return command;
     }
 
     /**
      * Command to stop the robot (default command)
      */
     public Command stopRobot() {
-        return run(() -> drivetrain.drive(0, 0)).withName("Stop Robot");
+        Command command = run(() -> drivetrain.drive(0, 0)).withName("Stop Robot");
+        command.addRequirements(this);
+        return command;
     }
 }
